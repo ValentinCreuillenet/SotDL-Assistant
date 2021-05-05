@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sources/style.css">
+    <title>Shadow of the Demon Lord Assistant</title>
+</head>
+<header>
+    <!--The navbar-->
+    <nav class="navbar" id="navbar">
+        <input class="mainbtn shadow" type="button" id="spells" value="SPELLLS">
+        <input class="mainbtn shadow" type="button" id="paths" value="PATHS">
+        <input class="mainbtn shadow" type="button" id="ancestries" value="ANCESTRIES">
+        <input class="mainbtn shadow" type="button" id="bestiary" value="BESTIARY">
+    </nav>
+</header>
+<body>
+    <!--The sidebar-->
+    <div class="sidenav shadow" id="sidenav">
+        <h2>FILTER BY : </h2>
+
+        <label for="traditions">Tradition</label>
+        <select name="Tradition" id="traditions">
+            <option value=""></option>
+        </select>
+
+        <label for="rank">Rank</label>
+        <select name="Rank" id="rank">
+            <option value=""></option>
+        </select>
+
+        <label for="duration">Duration</label>
+        <select name="Duration" id="duration">
+            <option value=""></option>
+        </select>
+         
+        <label for="range">Range</label>
+        <select name="Range" id="range">
+            <option value=""></option>
+        </select>
+
+        <label for="radius">Area</label>
+        <select name="Radius" id="radius">
+            <option value=""></option>
+        </select>
+
+        <label for="type">Type</label>
+        <select name="Type" id="type">
+            <option value=""></option>
+        </select>
+
+        <label for="affliction">Affliction</label>
+        <select name="Afflictions" id="affliction">
+            <option value=""></option>
+        </select>
+
+        <label for="damage">Damage</label>
+        <select name="Damage" id="damage">
+            <option value=""></option>
+        </select>
+
+        <input class="filter" type="button" value="Filter spells" id="filter">
+    </div>
+    <!--The div in which dynamic content is displayed-->
+    <div class="main" id="main">
+
+    </div>
+</body>
+<footer>
+    <script src = "sources/script.js"></script>
+</footer>
+</html>
