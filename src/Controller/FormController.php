@@ -14,11 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormController extends AbstractController
 {
     #[Route('/spells/create', name: 'createSpell')]
-    public function createSpell(): Response
+    public function createSpell(Request $request): Response
     {
         $spell = new Spell();
 
         $form = $this->createForm(SpellFormType::class, $spell);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $spell = $form->getData();
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($spell);
+            $entityManager->flush();
+
+        }
 
         return $this->render('form/index.html.twig', [
             'form' => $form->createView(),
