@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CTag%2523getSpells
+
+return [PHP_INT_MAX, []];
