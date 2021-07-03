@@ -32,12 +32,40 @@ class FormController extends AbstractController
 
         }
 
-        return $this->render('form/index.html.twig', [
+        return $this->render('form/spell.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/tags/create', name: 'createTag')]
+    #[Route('/tags', name: 'getTags', methods: ['GET'])]
+    public function getTags(Request $request): Response
+    {
+        $tag = new Tag();
+
+        $form = $this->createForm(TagFormType::class, $tag);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $tag = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($tag);
+            $entityManager->flush();
+
+        }
+
+        $tags = $this->getDoctrine()
+        ->getRepository(Tag::class)
+        ->findAll();
+
+        return $this->render('form/tag.html.twig', [
+            'form' => $form->createView(),
+            'tags' => $tags,
+        ]);
+    }
+
+    #[Route('/tags', name: 'createTag', methods: ['POST'])]
     public function createTag(Request $request): Response
     {
         $tag = new Tag();
@@ -49,15 +77,24 @@ class FormController extends AbstractController
 
             $tag = $form->getData();
 
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tag);
             $entityManager->flush();
 
         }
 
-        return $this->render('form/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('getTags');
+    }
+
+    #[Route('/tags/delete/{id}', name: 'deleteTag')]
+    public function deleteTag(int $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $tag = $entityManager->getRepository(Tag::class)->find($id);
+
+        $entityManager->remove($tag);
+        $entityManager->flush();    
+
+        return $this->redirectToRoute('getTags');
     }
 }
