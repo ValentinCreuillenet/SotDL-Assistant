@@ -1,0 +1,12 @@
+{% include 'base.html.twig' %}
+
+<div class="container">
+    {{ form(form) }}
+</div>
+
+<div class="container">
+    <h3>Liste des tags actuel</h3>
+    {% for tag in tags %}
+        <li><b>{{tag.short}}</b> :  {{tag.description}} <a class="btn btn-danger" href="{{ app.request.schemeAndHttpHost}}/tags/delete/{{tag.id}}" role="button">Delete</a></li>
+    {% endfor %}
+</div>
