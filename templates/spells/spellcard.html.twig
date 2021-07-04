@@ -1,7 +1,44 @@
 <div class="container">
-    <span><b style="color:crimson">{{spell.name}}</b> {{spell.tradition}} {{spell.label}} {{spell.rank}}</span>
-    <p><b>Requirment</b>{{spell.requirment}}</p>
-    <p><b>Target</b>{{spell.target}}</p>
-    <p><b>Area</b>{{spell.area}}</p>
-    <p><b>Duration</b>{{spell.duration}}</p>
+    <p><b style="color:crimson">{{spell.name}}</b> {{spell.tradition}} {{spell.label}} {{spell.rank}}</p>
+
+    {% if spell.requirement %}
+        <p><b>Requirment </b> {{spell.requirement}}</p>
+    {% endif %}
+
+    {% if spell.target %}
+    <p><b>Target </b> {{spell.target}}</p>
+    {% endif %}
+
+    {% if spell.area %}
+    <p><b>Area </b> {{spell.area}}</p>
+    {% endif %}
+
+    {% if spell.duration %}
+    <p><b>Duration </b> {{spell.duration}}</p>
+    {% endif %}
+
+    {% if spell.description %}
+    <p>{{spell.description}}</p>
+    {% endif %}
+
+    {% if spell.triggered %}
+    <p><b>Triggered </b> {{spell.triggered}}</p>
+    {% endif %}
+
+    {% if spell.sacrifice %}
+    <p><b>Sacrifice </b> {{spell.sacrifice}}</p>
+    {% endif %}
+
+    {% if spell.permanance %}
+    <p><b>Permanence </b> {{spell.permanance}}</p>
+    {% endif %}
+
+    {% if spell.twentyPlus %}
+    <p><b>Attack Roll 20+ </b> {{spell.twentyPlus}}</p>
+    {% endif %}
+
+    {% if spell.aftereffect %}
+    <p><b>Aftereffect </b> {{spell.aftereffect}}</p>
+    {% endif %}
+
 </div>
