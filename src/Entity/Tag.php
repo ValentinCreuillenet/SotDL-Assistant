@@ -34,9 +34,21 @@ class Tag
      */
     private $spells;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Talent::class, mappedBy="tags")
+     */
+    private $talents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Creature::class, mappedBy="tags")
+     */
+    private $creatures;
+
     public function __construct()
     {
         $this->spells = new ArrayCollection();
+        $this->talents = new ArrayCollection();
+        $this->creatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,6 +102,60 @@ class Tag
     {
         if ($this->spells->removeElement($spell)) {
             $spell->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Talent[]
+     */
+    public function getTalents(): Collection
+    {
+        return $this->talents;
+    }
+
+    public function addTalent(Talent $talent): self
+    {
+        if (!$this->talents->contains($talent)) {
+            $this->talents[] = $talent;
+            $talent->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTalent(Talent $talent): self
+    {
+        if ($this->talents->removeElement($talent)) {
+            $talent->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Creature[]
+     */
+    public function getCreatures(): Collection
+    {
+        return $this->creatures;
+    }
+
+    public function addCreature(Creature $creature): self
+    {
+        if (!$this->creatures->contains($creature)) {
+            $this->creatures[] = $creature;
+            $creature->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreature(Creature $creature): self
+    {
+        if ($this->creatures->removeElement($creature)) {
+            $creature->removeTag($this);
         }
 
         return $this;

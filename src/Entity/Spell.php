@@ -89,9 +89,27 @@ class Spell
      */
     private $tags;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Character::class, mappedBy="spells")
+     */
+    private $characters;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Creature::class, mappedBy="spells")
+     */
+    private $creatures;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Creature::class)
+     */
+    private $links;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->characters = new ArrayCollection();
+        $this->creatures = new ArrayCollection();
+        $this->links = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -275,6 +293,84 @@ class Spell
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->addSpell($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            $character->removeSpell($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Creature[]
+     */
+    public function getCreatures(): Collection
+    {
+        return $this->creatures;
+    }
+
+    public function addCreature(Creature $creature): self
+    {
+        if (!$this->creatures->contains($creature)) {
+            $this->creatures[] = $creature;
+            $creature->addSpell($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreature(Creature $creature): self
+    {
+        if ($this->creatures->removeElement($creature)) {
+            $creature->removeSpell($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Creature[]
+     */
+    public function getLinks(): Collection
+    {
+        return $this->links;
+    }
+
+    public function addLink(Creature $link): self
+    {
+        if (!$this->links->contains($link)) {
+            $this->links[] = $link;
+        }
+
+        return $this;
+    }
+
+    public function removeLink(Creature $link): self
+    {
+        $this->links->removeElement($link);
 
         return $this;
     }
