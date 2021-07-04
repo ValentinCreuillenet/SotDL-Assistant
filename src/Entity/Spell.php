@@ -104,6 +104,16 @@ class Spell
      */
     private $links;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $aftereffect;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $permanance;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -371,6 +381,30 @@ class Spell
     public function removeLink(Creature $link): self
     {
         $this->links->removeElement($link);
+
+        return $this;
+    }
+
+    public function getAftereffect(): ?string
+    {
+        return $this->aftereffect;
+    }
+
+    public function setAftereffect(?string $aftereffect): self
+    {
+        $this->aftereffect = $aftereffect;
+
+        return $this;
+    }
+
+    public function getPermanance(): ?string
+    {
+        return $this->permanance;
+    }
+
+    public function setPermanance(?string $permanance): self
+    {
+        $this->permanance = $permanance;
 
         return $this;
     }

@@ -99,6 +99,12 @@ class SpellFormType extends AbstractType
             ->add('sacrifice', TextType::class, [
                 'required' => false,
             ])
+            ->add('aftereffect', TextType::class, [
+                'required' => false,
+            ])
+            ->add('permanance', TextType::class, [
+                'required' => false,
+            ])
             ->add('tags',  EntityType::class, [
                 'class' => Tag::class,
                 'choice_label' => 'short',
