@@ -1,25 +1,31 @@
-<div class="container">
-    <p><b style="color:crimson">{{spell.name}}</b> {{spell.tradition}} {{spell.label}} {{spell.rank}}</p>
+<div class="container w-25 shadow-lg p-3 mb-6 bg-white rounded" style="background-color: #BDB76B;">
 
-    {% if spell.requirement %}
-        <p><b>Requirment </b> {{spell.requirement}}</p>
-    {% endif %}
+    <div class="d-flex flex-row justify-content-between border-bottom border-dark">
+        <p style="color:crimson"><b >{{spell.name}}</b></p>
+        <p style="color:crimson">{{spell.tradition}} {{spell.label}} {{spell.rank}}</p>
+    </div>
 
-    {% if spell.target %}
-    <p><b>Target </b> {{spell.target}}</p>
-    {% endif %}
+    <div class="border-bottom border-danger mb-2">
+        {% if spell.requirement %}
+            <p><b>Requirment </b> {{spell.requirement}}</p>
+        {% endif %}
 
-    {% if spell.area %}
-    <p><b>Area </b> {{spell.area}}</p>
-    {% endif %}
+        {% if spell.target %}
+            <p><b>Target </b> {{spell.target}}</p>
+        {% endif %}
 
-    {% if spell.duration %}
-    <p><b>Duration </b> {{spell.duration}}</p>
-    {% endif %}
+        {% if spell.area %}
+            <p><b>Area </b> {{spell.area}}</p>
+        {% endif %}
 
-    {% if spell.description %}
-    <p>{{spell.description}}</p>
-    {% endif %}
+        {% if spell.duration %}
+            <p><b>Duration </b> {{spell.duration}}</p>
+        {% endif %}
+    </div>
+
+        {% if spell.description %}
+            <p>{{spell.description}}</p>
+        {% endif %}
 
     {% if spell.triggered %}
     <p><b>Triggered </b> {{spell.triggered}}</p>
@@ -41,4 +47,7 @@
     <p><b>Aftereffect </b> {{spell.aftereffect}}</p>
     {% endif %}
 
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-danger" href="{{ app.request.schemeAndHttpHost}}spells/{{spell.id}}/delete" role="button">Delete</a>
+    {% endif %}
 </div>

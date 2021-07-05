@@ -1,0 +1,14 @@
+{% include 'base.html.twig' %}
+{% include 'navbar.html.twig' %}
+
+<div class="container  flex justify-center text-center">
+    <form action="{{url('user_update')}}" method="post">
+        <div class="m-5 ">
+            <input type="radio" id="edit" name="mode" value="edit">
+            <label for="edit">Activate edit mode</label>
+            <input type="radio" id="browse" name="mode" value="browse">
+            <label for="browse">Activate browse mode</label>
+        </div>
+        <button class="btn btn-primary m-5" type="submit">Change settings</button>
+    </form>
+</div>
