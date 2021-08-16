@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SpellFormType extends AbstractType
+class SpellSearchFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -65,62 +65,70 @@ class SpellFormType extends AbstractType
                     'TRANSFORMATION' => 'TRANSFORMATION',
                     'WATER' => 'WATER'
                 ],
+                'multiple'=>true,
+                'expanded'=>true
             ])
             ->add('rank', ChoiceType::class, [
                 'choices' => [
-                    0=>0,
-                    1=>1,
-                    2=>2,
-                    3=>3,
-                    4=>4,
-                    5=>5,
-                    6=>6,
-                    7=>7,
-                    8=>8,
-                    9=>9,
-                    10=>10
+                    '0'=>'0',
+                    '1'=>'1',
+                    '2'=>'2',
+                    '3'=>'3',
+                    '4'=>'4',
+                    '5'=>'5',
+                    '6'=>'6',
+                    '7'=>'7',
+                    '8'=>'8',
+                    '9'=>'9',
+                    '10'=>'10'
                 ],
+                'multiple'=>true,
+                'expanded'=>true
             ])
-            ->add('name', TextType::class)
-            ->add('label', ChoiceType::class, [
+
+
+            ->add('duration', ChoiceType::class, [
                 'choices' => [
-                    "ATTACK" => "ATTACK",
-                    "UTILITY" => "UTILITY"
+                    '1 round'=>'1 round',
+                    '1 minute'=>'1 minute',
+                    '10 minute'=>'10 minute',
+                    '1 hour'=>'1 hour',
+                    'More'=>'More'
                 ],
+                'multiple'=>true,
+                'expanded'=>true
             ])
-            ->add('area', TextType::class, [
-                'required' => false,
+            ->add('target', ChoiceType::class, [
+                'choices' => [
+                    '1 creature'=>'One creature',
+                    '2 creatures'=>'two creatures',
+                    '3 creatures'=>'three creatures',
+                    '4 creatures'=>'four creatures',
+                    '5 creatures'=>'five creatures',
+                    'More'=>'each'
+                ],
+                'multiple'=>true,
+                'expanded'=>true
             ])
-            ->add('duration', TextType::class, [
-                'required' => false,
+            
+            ->add('damage', ChoiceType::class, [
+                'choices' => [
+                    '1d6+'=>'1d6',
+                    '2d6+'=>'2d6',
+                    '3d6+'=>'3d6',
+                    '4d6+'=>'4d6',
+                    '5d6+'=>'5d6',
+                    '6d6+'=>'6d6',
+                    '7d6+'=>'7d6',
+                    '8d6+'=>'8d6',
+                    '9d6+'=>'9d6',
+                    '10d6+'=>'10d6',
+                    'More'=>'More'
+                ],
+                'multiple'=>true,
+                'expanded'=>true
             ])
-            ->add('target', TextType::class, [
-                'required' => false,
-            ])
-            ->add('requirement', TextType::class, [
-                'required' => false,
-            ])
-            ->add('damage', TextType::class, [
-                'required' => false,
-            ])
-            ->add('description', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('twentyPlus', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('triggered', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('sacrifice', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('aftereffect', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('permanance', TextareaType::class, [
-                'required' => false,
-            ])
+
             ->add('tags',  EntityType::class, [
                 'class' => Tag::class,
                 'choice_label' => 'short',
@@ -136,10 +144,12 @@ class SpellFormType extends AbstractType
         ;
     }
 
+    /*
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Spell::class,
         ]);
     }
+    */
 }

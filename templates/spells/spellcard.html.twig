@@ -48,6 +48,10 @@
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
-    <a class="btn btn-danger" href="{{ app.request.schemeAndHttpHost}}spells/{{spell.id}}/delete" role="button">Delete</a>
+    <a class="btn btn-danger" href="{{ app.request.schemeAndHttpHost}}/spells/{{spell.id}}/delete" role="button">Delete</a>
+    {% endif %}
+
+     {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-danger" href="{{ app.request.schemeAndHttpHost}}/spells/{{spell.id}}/edit" role="button">Edit</a>
     {% endif %}
 </div>

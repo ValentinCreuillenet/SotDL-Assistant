@@ -11,32 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FormController extends AbstractController
+class TagController extends AbstractController
 {
-    #[Route('/spells/create', name: 'createSpell')]
-    public function createSpell(Request $request): Response
-    {
-        $spell = new Spell();
-
-        $form = $this->createForm(SpellFormType::class, $spell);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $spell = $form->getData();
-
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($spell);
-            $entityManager->flush();
-
-        }
-
-        return $this->render('form/spell.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
+    
+    /**
+     * Show the form to create a tag as well as the list of all current tags under it
+     */
     #[Route('/tags', name: 'getTags', methods: ['GET'])]
     public function getTags(Request $request): Response
     {
@@ -57,7 +37,7 @@ class FormController extends AbstractController
 
         $tags = $this->getDoctrine()
         ->getRepository(Tag::class)
-        ->findAll();
+        ->findBy([], ['short' => 'ASC']);
 
         return $this->render('form/tag.html.twig', [
             'form' => $form->createView(),
@@ -65,6 +45,9 @@ class FormController extends AbstractController
         ]);
     }
 
+    /**
+     * Creates a tag from the submitted form
+     */
     #[Route('/tags', name: 'createTag', methods: ['POST'])]
     public function createTag(Request $request): Response
     {
@@ -86,6 +69,9 @@ class FormController extends AbstractController
         return $this->redirectToRoute('getTags');
     }
 
+    /**
+     * Deletes the tag with the given ID
+     */
     #[Route('/tags/delete/{id}', name: 'deleteTag')]
     public function deleteTag(int $id)
     {

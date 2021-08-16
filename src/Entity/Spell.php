@@ -25,7 +25,7 @@ class Spell
     private $tradition;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $rank;
 
